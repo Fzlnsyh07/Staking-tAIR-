@@ -1,58 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>$tAIR Staking</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
   <style>
     body {
-      background: linear-gradient(to bottom right, #87ceeb, #1e90ff);
       font-family: Arial, sans-serif;
-      color: #fff;
+      background-color: #e6f2ff; /* biru langit muda */
+      color: #003366;
+      margin: 0;
+      padding: 0;
       text-align: center;
-      padding: 40px;
     }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
+    header {
+      background: #3399ff;
+      color: white;
+      padding: 15px;
+      font-size: 1.5rem;
+    }
+    .container {
+      margin: 30px auto;
+      padding: 20px;
+      max-width: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     button {
-      padding: 12px 25px;
+      background-color: #3399ff;
+      color: white;
       border: none;
+      padding: 12px 20px;
+      margin: 10px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
-      margin: 10px;
-      background-color: #4682b4;
-      color: #fff;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #267acc;
     }
     input {
       padding: 10px;
+      width: 80%;
+      margin-top: 10px;
+      border: 1px solid #ccc;
       border-radius: 8px;
-      border: none;
-      margin: 10px;
-      width: 200px;
-      font-size: 16px;
     }
-    #stakingMenu {
-      margin-top: 30px;
-      display: none;
+    #walletAddress {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #0066cc;
     }
   </style>
 </head>
 <body>
-  <h1>$tAIR Staking</h1>
-  <button onclick="connectWallet()">Connect Wallet</button>
-  <p id="walletAddress">Not connected</p>
+  <header>
+    $tAIR Staking dApp
+  </header>
 
-  <div id="stakingMenu">
-    <h2>Stake Your Tokens</h2>
-    <input type="text" id="stakeAmount" placeholder="Jumlah $tAIR" />
-    <button onclick="stakeTokens()">Stake</button>
-    <button onclick="unstakeTokens()">Unstake</button>
-    <p id="stakeInfo"></p>
+  <div class="container">
+    <h2>Connect Your Wallet</h2>
+    <button id="connectButton">Connect Wallet</button>
+    <p id="walletAddress">Not Connected</p>
+
+    <hr/>
+
+    <h3>Stake Tokens</h3>
+    <input type="number" id="stakeAmount" placeholder="Amount to stake"/>
+    <br/>
+    <button id="stakeButton">Stake</button>
+
+    <h3>Unstake Tokens</h3>
+    <input type="number" id="unstakeAmount" placeholder="Amount to unstake"/>
+    <br/>
+    <button id="unstakeButton">Unstake</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    let account;
+
+    async function connectWallet() {
+      if (typeof window.ethereum !== "undefined") {
+        try {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          account = accounts[0];
+          document.getElementById("walletAddress").innerText =
+            "Connected: " + account;
+        } catch (error) {
+          console.error("User rejected connection:", error);
+        }
+      } else {
+        alert("MetaMask not detected. Please install MetaMask.");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const connectBtn = document.getElementById("connectButton");
+      if (connectBtn) connectBtn.addEventListener("click", connectWallet);
+
+      // tombol stake & unstake (sementara hanya alert, nanti hubungkan ke smart contract)
+      document.getElementById("stakeButton").addEventListener("click", () => {
+        const amount = document.getElementById("stakeAmount").value;
+        alert("Staking " + amount + " $tAIR (belum terhubung ke contract)");
+      });
+
+      document.getElementById("unstakeButton").addEventListener("click", () => {
+        const amount = document.getElementById("unstakeAmount").value;
+        alert("Unstaking " + amount + " $tAIR (belum terhubung ke contract)");
+      });
+    });
+  </script>
 </body>
 </html>
