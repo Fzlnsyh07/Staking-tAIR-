@@ -1,55 +1,73 @@
 body {
-      font-family: 'Segoe UI', sans-serif;
-        background: linear-gradient(to bottom right, #87CEFA, #1E90FF);
-          display: flex;
-            justify-content: center;
-              align-items: center;
-                height: 100vh;
-                  margin: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to top, #4facfe 0%, #00f2fe 100%);
+  overflow-x: hidden;
+  color: #fff;
+  text-align: center;
 }
 
-.card {
-      background: white;
-        padding: 25px;
-          border-radius: 20px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-              width: 350px;
-                text-align: center;
+/* Container */
+.container {
+  margin-top: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-h1 {
-      color: #1E90FF;
-        margin-bottom: 20px;
-}
-
+/* Buttons */
 button {
-      padding: 10px 20px;
-        margin: 8px;
-          border: none;
-            border-radius: 10px;
-              cursor: pointer;
-                font-size: 16px;
-                  background: #1E90FF;
-                    color: white;
-                      transition: 0.2s;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 10px;
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-      background: #4682B4;
+  background: #0056b3;
 }
 
+/* Inputs */
 input {
-      padding: 10px;
-        width: 80%;
-          margin: 10px 0;
-            border-radius: 10px;
-              border: 1px solid #ccc;
-              text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin: 5px;
+  width: 60%;
 }
 
+/* Floating clouds */
+.clouds::before,
+.clouds::after {
+  content: "";
+  position: absolute;
+  top: 50px;
+  width: 200px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  filter: blur(15px);
+  animation: floatClouds 60s linear infinite;
 }
+
+.clouds::after {
+  top: 150px;
+  left: 60%;
+  width: 300px;
+  height: 80px;
+  animation-duration: 90s;
 }
-}
-}
-}
+
+@keyframes floatClouds {
+  0% { transform: translateX(-400px); }
+  100% { transform: translateX(100vw); }
 }
