@@ -2,29 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-    <title>$tAIR Staking DApp</title>
-      <link rel="stylesheet" href="style.css">
-        <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-        </head>
-        <body>
-          <div class="card">
-              <h1>$tAIR Staking</h1>
-                  <button id="connectBtn">🔗 Connect Wallet</button>
-                  <button onclick="connectWallet()">Connect Wallet</button>
-                  <p id="walletAddress"></p>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$tAIR Staking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>$tAIR Staking</h1>
 
+    <!-- Tombol Connect Wallet -->
+    <button onclick="connectWallet()" class="btn">Connect Wallet</button>
+    <p id="walletAddress">Wallet not connected</p>
+  </div>
 
-                      <div id="walletInfo" style="display:none;">
-                            <p><strong>Wallet:</strong> <span id="walletAddress"></span></p>
-                                  <input type="number" id="amount" placeholder="Amount to stake">
-                                        <div class="actions">
-                                                <button onclick="stake()">🚀 Stake</button>
-                                                        <button onclick="unstake()">↩️ Unstake</button>
-                                                              </div>
-                                                                    <p><strong>Your Stake:</strong> <span id="stakedAmount">0</span> $tAIR</p>
-                                                                        </div>
-                                                                          </div>
-                                                                            <script src="script.js"></script>
-                                                                            </body>
-                                                                            </html>
-                                                                            
+  <!-- Hubungkan file script.js -->
+  <script src="script.js"></script>
+</body>
+</html>
