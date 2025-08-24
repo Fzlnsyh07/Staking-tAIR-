@@ -2,125 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$tAIR Staking DApp</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #e6f4ff;
-      color: #003366;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      text-align: center;
-      width: 350px;
-    }
-    button {
-      background-color: #3399ff;
-      border: none;
-      color: white;
-      padding: 12px 20px;
-      margin: 10px;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background-color: #0077cc;
-    }
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-      text-align: center;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tAIR Staking DApp</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="card">
-    <h2>$tAIR Staking</h2>
-    <p id="walletAddress">Wallet not connected</p>
-    <button onclick="connectWallet()">🔗 Connect Wallet</button>
+  <div class="clouds"></div>
+  <div class="container">
+    <h1>☁️ tAIR Staking DApp</h1>
+    <button id="connectButton">🔗 Connect Wallet</button>
 
-    <h3>Stake Tokens</h3>
-    <input id="stakeAmount" type="number" placeholder="Amount of $tAIR">
-    <button onclick="stakeTokens()">🚀 Stake</button>
+    <div id="app" style="display:none;">
+      <p><b>Wallet:</b> <span id="walletAddress"></span></p>
+      <p><b>Staked Balance:</b> <span id="stakedBalance">0</span> tAIR</p>
+      <p><b>Pending Rewards:</b> <span id="pendingReward">0</span> tAIR</p>
+
+      <div class="actions">
+        <input type="number" id="stakeAmount" placeholder="Amount to stake">
+        <button id="stakeButton">Stake</button>
+      </div>
+
+      <div class="actions">
+        <input type="number" id="unstakeAmount" placeholder="Amount to unstake">
+        <button id="unstakeButton">Unstake</button>
+      </div>
+
+      <div class="actions">
+        <button id="claimButton">Claim Rewards</button>
+      </div>
+    </div>
   </div>
 
-  <script>
-    const tokenAddress = "0x5393aBE6CE6fF2BD32fb4FA962D75B9cA3ae07D3"; // token contract kamu
-    const stakingAddress = "0x5393aBE6CE6fF2BD32fb4FA962D75B9cA3ae07D3"; // 👈 ganti dengan kontrak STAKING tujuan
-    const tokenABI = [
-      {
-        "inputs": [
-          { "internalType": "address", "name": "to", "type": "address" },
-          { "internalType": "uint256", "name": "amount", "type": "uint256" }
-        ],
-        "name": "transfer",
-        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          { "internalType": "address", "name": "from", "type": "address" },
-          { "internalType": "address", "name": "to", "type": "address" },
-          { "internalType": "uint256", "name": "amount", "type": "uint256" }
-        ],
-        "name": "transferFrom",
-        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-        "stateMutability": "nonpayable",
-        "type": "function"
-      }
-    ];
-
-    let provider, signer, tokenContract;
-
-    async function connectWallet() {
-      if (window.ethereum) {
-        provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.send("eth_requestAccounts", []);
-        signer = provider.getSigner();
-        const address = await signer.getAddress();
-        document.getElementById("walletAddress").innerText = "Connected: " + address;
-
-        tokenContract = new ethers.Contract(tokenAddress, tokenABI, signer);
-      } else {
-        alert("⚠️ MetaMask not detected!");
-      }
-    }
-
-    async function stakeTokens() {
-      const amount = document.getElementById("stakeAmount").value;
-      if (!amount || amount <= 0) {
-        alert("Enter valid amount!");
-        return;
-      }
-      try {
-        const tx = await tokenContract.transfer(
-          stakingAddress,
-          ethers.utils.parseUnits(amount, 18) // asumsi 18 desimal
-        );
-        await tx.wait();
-        alert("✅ Staked " + amount + " $tAIR to staking contract!");
-      } catch (err) {
-        console.error(err);
-        alert("❌ Error: " + (err.message || err));
-      }
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
