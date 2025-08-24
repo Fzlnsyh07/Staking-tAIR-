@@ -2,20 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>$tAIR Staking</title>
-  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #87ceeb, #1e90ff);
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+      background-color: #4682b4;
+      color: #fff;
+    }
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin: 10px;
+      width: 200px;
+      font-size: 16px;
+    }
+    #stakingMenu {
+      margin-top: 30px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>$tAIR Staking</h1>
+  <h1>$tAIR Staking</h1>
+  <button onclick="connectWallet()">Connect Wallet</button>
+  <p id="walletAddress">Not connected</p>
 
-    <!-- Tombol Connect Wallet -->
-    <button onclick="connectWallet()" class="btn">Connect Wallet</button>
-    <p id="walletAddress">Wallet not connected</p>
+  <div id="stakingMenu">
+    <h2>Stake Your Tokens</h2>
+    <input type="text" id="stakeAmount" placeholder="Jumlah $tAIR" />
+    <button onclick="stakeTokens()">Stake</button>
+    <button onclick="unstakeTokens()">Unstake</button>
+    <p id="stakeInfo"></p>
   </div>
 
-  <!-- Hubungkan file script.js -->
   <script src="script.js"></script>
 </body>
 </html>
